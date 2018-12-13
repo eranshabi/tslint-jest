@@ -2,7 +2,7 @@
   "name": "tslint-jest",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "tslint-jest.json",
   "scripts": {
     "test": "jest",
     "build": "tsc",
