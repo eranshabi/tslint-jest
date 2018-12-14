@@ -23,16 +23,18 @@ class Walk extends Lint.RuleWalker {
         super.visitCallExpression(node);
     }
 
+    isCallExpressionAssertion(node: ts.CallExpression) {
+        return node.getChildAt(0).getText() === 'expect';
+    }
+
     testFunctionHasAssertion(node: ts.Expression) {
         let hasAssertion: boolean = false;
-        const checkAssertionInChild = child => {
-            if (child.expression) {
-                if (child.expression.expression.expression.getText() === 'expect') {
+        const checkAssertionInChild = (child) => {
+            child.getChildren().forEach(_child => checkAssertionInChild(_child));
+            if (ts.isCallExpression(child)) {
+                if (this.isCallExpressionAssertion(child)) {
                     hasAssertion = true;
-                }
-
-                if (child.getChildren().length > 0) {
-                    child.getChildren().forEach(checkAssertionInChild);
+                    return;
                 }
             }
         };

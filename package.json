@@ -1,12 +1,12 @@
 {
   "name": "tslint-jest",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "",
   "main": "tslint-jest.json",
   "scripts": {
     "test": "jest",
-    "build": "tsc",
-    "publish": "tsc && npm publish"
+    "build": "rm -rf dist && tsc",
+    "publish": "npm run build && tsc && npm publish"
   },
   "repository": {
     "type": "git",
