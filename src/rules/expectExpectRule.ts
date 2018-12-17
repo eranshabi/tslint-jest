@@ -10,12 +10,14 @@ export class Rule extends Lint.Rules.AbstractRule {
 }
 
 class Walk extends Lint.RuleWalker {
+    private assertionFunctionsNames: string[] = ['expect'].concat(this.getOptions());
+    private testFunctionsNames: string[] = ['it', 'test'];
     constructor(sourceFile: ts.SourceFile, options: Lint.IOptions) {
         super(sourceFile, options);
     }
 
     protected visitCallExpression(node: ts.CallExpression) {
-        if (node.expression.getText() === 'it' || node.expression.getText() === 'test') {
+        if (this.testFunctionsNames.includes(node.expression.getText())) {
             if (node.arguments[1]) {
                 this.testFunctionHasAssertion(node.arguments[1])
             }
@@ -24,7 +26,7 @@ class Walk extends Lint.RuleWalker {
     }
 
     isCallExpressionAssertion(node: ts.CallExpression) {
-        return node.getChildAt(0).getText() === 'expect';
+        return this.assertionFunctionsNames.includes(node.getChildAt(0).getText());
     }
 
     testFunctionHasAssertion(node: ts.Expression) {

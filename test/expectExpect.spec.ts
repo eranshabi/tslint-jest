@@ -1,4 +1,4 @@
-import {expectExpect, lintFileString} from './utils';
+import {expectExpect, expectExpectWithOptions, lintFileString} from './utils';
 
 describe('expect-expect', () => {
     it('should pass', () => {
@@ -74,6 +74,29 @@ describe('expect-expect', () => {
         notExpect(getNumber()).toBe('2');
       });`;
         result = lintFileString(file, expectExpect);
+        expect(result.errorCount).toEqual(1);
+    });
+
+    it('should support custom assertion functions', () => {
+        let file =
+            ` it('should display the correct title', function() {
+        customAssertion(getNumber()).toBe('2');
+      });`;
+        let result = lintFileString(file, expectExpectWithOptions(['customAssertion']));
+        expect(result.errorCount).toEqual(0);
+
+        file =
+            ` it('should display the correct title', function() {
+        expect(getNumber()).toBe('2');
+      });`;
+        const result = lintFileString(file, expectExpectWithOptions(['customAssertion']));
+        expect(result.errorCount).toEqual(0);
+
+        file =
+            ` it('should display the correct title', function() {
+        func3(getNumber()).toBe('2');
+      });`;
+        const result = lintFileString(file, expectExpectWithOptions(['func1', 'func2']));
         expect(result.errorCount).toEqual(1);
     });
 });
