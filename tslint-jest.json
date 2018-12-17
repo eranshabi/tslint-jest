@@ -1,7 +1,3 @@
 {
-  "rules":
-  {
-    "expect-expect": true
-  },
-  "rulesDirectory": "dist/src"
+  "rulesDirectory": "dist/src/rules"
 }

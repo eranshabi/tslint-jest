@@ -1,6 +1,6 @@
 {
   "name": "tslint-jest",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "main": "tslint-jest.json",
   "scripts": {
@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/eranshabi/tslint-jest#readme",
   "files": [
-    "dist/src"
+    "dist/src/rules"
   ],
   "dependencies": {
     "tslint": "^5.9.1"
