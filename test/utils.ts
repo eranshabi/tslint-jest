@@ -19,9 +19,18 @@ export const expectExpect = {
     "rulesDirectory": "src/rules"
 };
 
+export const noAliasMethods = {
+    "defaultSeverity": "error",
+    "jsRules": {},
+    "rules": {
+        "no-alias-methods": true
+    },
+    "rulesDirectory": "src/rules"
+};
+
 export function expectExpectWithOptions(options: string[]) {
     const rule = expectExpect;
-    rule.rules['expect-expect'] = [true, ...options];
+    (rule.rules['expect-expect'] as any) = [true, ...options];
     return rule;
 }
 

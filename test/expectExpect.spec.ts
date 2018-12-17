@@ -89,14 +89,14 @@ describe('expect-expect', () => {
             ` it('should display the correct title', function() {
         expect(getNumber()).toBe('2');
       });`;
-        const result = lintFileString(file, expectExpectWithOptions(['customAssertion']));
+        result = lintFileString(file, expectExpectWithOptions(['customAssertion']));
         expect(result.errorCount).toEqual(0);
 
         file =
             ` it('should display the correct title', function() {
         func3(getNumber()).toBe('2');
       });`;
-        const result = lintFileString(file, expectExpectWithOptions(['func1', 'func2']));
+        result = lintFileString(file, expectExpectWithOptions(['func1', 'func2']));
         expect(result.errorCount).toEqual(1);
     });
 });
